@@ -9,12 +9,12 @@ function ItemListContainer() {
 
   useEffect(() => {
     setLoading(true);
-    let url = "https://fakestoreapi.com/products";
-    if (categoryId) url = `https://fakestoreapi.com/products/category/${categoryId}`;
+    let url = "https://dummyjson.com/products";
+    if (categoryId) url = `https://dummyjson.com/products/category/${categoryId}`;
     setTimeout(() => {
       fetch(url)
         .then(res => res.json())
-        .then(data => setProducts(data))
+        .then(data => setProducts(data.products || data))
         .finally(() => setLoading(false));
     }, 1000);
   }, [categoryId]);

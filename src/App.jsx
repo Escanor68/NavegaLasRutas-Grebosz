@@ -6,6 +6,29 @@ import Cart from './components/Cart'
 import { useCart } from './context/CartContext'
 import './App.css'
 
+const categoryTranslations = {
+  smartphones: 'Celulares',
+  laptops: 'Laptops',
+  fragrances: 'Fragancias',
+  skincare: 'Cuidado de la piel',
+  groceries: 'Comestibles',
+  "home-decoration": 'Decoración',
+  furniture: 'Muebles',
+  tops: 'Tops',
+  "womens-dresses": 'Vestidos de mujer',
+  "womens-shoes": 'Zapatos de mujer',
+  "mens-shirts": 'Camisas de hombre',
+  "mens-shoes": 'Zapatos de hombre',
+  "mens-watches": 'Relojes de hombre',
+  "womens-watches": 'Relojes de mujer',
+  "womens-bags": 'Bolsos de mujer',
+  "womens-jewellery": 'Joyería de mujer',
+  sunglasses: 'Gafas de sol',
+  automotive: 'Automotriz',
+  motorcycle: 'Motocicletas',
+  lighting: 'Iluminación',
+};
+
 function App() {
   const [categories, setCategories] = useState([])
   const [loading, setLoading] = useState(true)
@@ -14,7 +37,7 @@ function App() {
 
   useEffect(() => {
     setLoading(true)
-    fetch('https://fakestoreapi.com/products/categories')
+    fetch('https://dummyjson.com/products/categories')
       .then(res => res.json())
       .then(data => setCategories(data))
       .finally(() => setLoading(false))
@@ -38,7 +61,7 @@ function App() {
               ) : (
                 categories.map(cat => (
                   <li className="nav-item" key={cat}>
-                    <Link className="nav-link" to={`/category/${encodeURIComponent(cat)}`}>{cat.charAt(0).toUpperCase() + cat.slice(1)}</Link>
+                    <Link className="nav-link" to={`/category/${encodeURIComponent(cat)}`}>{categoryTranslations[cat] || cat}</Link>
                   </li>
                 ))
               )}

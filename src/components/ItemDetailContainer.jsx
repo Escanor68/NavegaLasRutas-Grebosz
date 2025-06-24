@@ -10,7 +10,7 @@ function ItemDetailContainer() {
   useEffect(() => {
     setLoading(true);
     setTimeout(() => {
-      fetch(`https://fakestoreapi.com/products/${itemId}`)
+      fetch(`https://dummyjson.com/products/${itemId}`)
         .then(res => res.json())
         .then(data => setProduct(data))
         .finally(() => setLoading(false));
