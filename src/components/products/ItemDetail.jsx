@@ -11,7 +11,6 @@ const ItemDetail = ({ product }) => {
   };
 
   const handleAddToCart = (quantity) => {
-    console.log(`Agregado ${quantity} del producto ${product.id} al carrito`);
     alert(`${quantity} producto(s) agregado(s) al carrito!`);
   };
 
