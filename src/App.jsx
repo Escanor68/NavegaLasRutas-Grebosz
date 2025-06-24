@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import ItemListContainer from './containers/ItemListContainer';
 import ItemDetailContainer from './containers/ItemDetailContainer';
 import NotFoundPage from './pages/NotFoundPage';
+import CartPage from './pages/CartPage';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="productos" element={<ItemListContainer />} />
           <Route path="categoria/:categoryId" element={<ItemListContainer />} />
           <Route path="producto/:id" element={<ItemDetailContainer />} />
+          <Route path="carrito" element={<CartPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

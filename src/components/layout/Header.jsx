@@ -32,6 +32,11 @@ const Header = () => {
                 Productos
               </Link>
             </li>
+            <li className="nav-item">
+              <Link to="/carrito" className="nav-link fw-medium">
+                🛒 Carrito
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
