@@ -60,8 +60,10 @@ function App() {
                 <li className="nav-item"><span className="nav-link">Cargando categorías...</span></li>
               ) : (
                 categories.map(cat => (
-                  <li className="nav-item" key={cat}>
-                    <Link className="nav-link" to={`/category/${encodeURIComponent(cat)}`}>{categoryTranslations[cat] || cat}</Link>
+                  <li className="nav-item" key={cat.slug}>
+                    <Link className="nav-link" to={`/category/${encodeURIComponent(cat.slug)}`}>
+                      {categoryTranslations[cat.slug] || cat.name || cat.slug}
+                    </Link>
                   </li>
                 ))
               )}
