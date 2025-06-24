@@ -1,17 +1,23 @@
-import { useCart } from '../context/CartContext';
+import { useEffect, useState } from "react";
 
 function Cart() {
-  const { cart, removeFromCart, clearCart } = useCart();
+  const [cart, setCart] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  if (!cart.length) {
-    return <div className="alert alert-info mt-4">El carrito está vacío.</div>;
-  }
+  useEffect(() => {
+    setLoading(true);
+    fetch("https://dummyjson.com/carts/1")
+      .then(res => res.json())
+      .then(data => setCart(data))
+      .finally(() => setLoading(false));
+  }, []);
 
-  const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  if (loading) return <div className="alert alert-info mt-4">Cargando carrito...</div>;
+  if (!cart) return <div className="alert alert-danger mt-4">No se pudo cargar el carrito.</div>;
 
   return (
     <div className="mt-4">
-      <h2>Carrito de compras</h2>
+      <h2>Carrito de compras (ejemplo API)</h2>
       <table className="table table-bordered mt-3">
         <thead>
           <tr>
@@ -19,28 +25,25 @@ function Cart() {
             <th>Cantidad</th>
             <th>Precio</th>
             <th>Subtotal</th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
-          {cart.map(item => (
+          {cart.products.map(item => (
             <tr key={item.id}>
-              <td>{item.title}</td>
+              <td>
+                <img src={item.thumbnail} alt={item.title} width={40} style={{marginRight: 8}} />
+                {item.title}
+              </td>
               <td>{item.quantity}</td>
               <td>${item.price}</td>
-              <td>${(item.price * item.quantity).toFixed(2)}</td>
-              <td>
-                <button className="btn btn-danger btn-sm" onClick={() => removeFromCart(item.id)}>
-                  Quitar
-                </button>
-              </td>
+              <td>${item.total.toFixed(2)}</td>
             </tr>
           ))}
         </tbody>
       </table>
       <div className="d-flex justify-content-between align-items-center">
-        <h4>Total: ${total.toFixed(2)}</h4>
-        <button className="btn btn-outline-danger" onClick={clearCart}>Vaciar carrito</button>
+        <h4>Total: ${cart.total.toFixed(2)}</h4>
+        <h5 className="text-success">Total con descuento: ${cart.discountedTotal.toFixed(2)}</h5>
       </div>
     </div>
   );
