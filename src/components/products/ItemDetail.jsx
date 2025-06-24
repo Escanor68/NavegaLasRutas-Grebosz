@@ -1,8 +1,11 @@
 import React from 'react';
 import { Star, Shield, Truck, RotateCcw } from 'lucide-react';
 import ItemCount from './ItemCount';
+import { useCart } from '../../context/CartContext';
 
 const ItemDetail = ({ product }) => {
+  const { addToCart } = useCart();
+
   const formatPrice = (price) => {
     return new Intl.NumberFormat('es-ES', {
       style: 'currency',
@@ -11,7 +14,7 @@ const ItemDetail = ({ product }) => {
   };
 
   const handleAddToCart = (quantity) => {
-    alert(`${quantity} producto(s) agregado(s) al carrito!`);
+    addToCart(product, quantity);
   };
 
   const stock = Math.floor(Math.random() * 20) + 5;
