@@ -1,17 +1,34 @@
 import { Routes, Route, Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import ItemListContainer from './components/ItemListContainer'
 import ItemDetailContainer from './components/ItemDetailContainer'
 import './App.css'
 
 function App() {
+  const [categories, setCategories] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    setLoading(true)
+    fetch('https://fakestoreapi.com/products/categories')
+      .then(res => res.json())
+      .then(data => setCategories(data))
+      .finally(() => setLoading(false))
+  }, [])
+
   return (
     <>
       <nav>
-        <Link to="/">Inicio</Link> |{' '}
-        <Link to="/category/electronics">Electrónica</Link> |{' '}
-        <Link to="/category/jewelery">Joyería</Link> |{' '}
-        <Link to="/category/men's clothing">Ropa Hombre</Link> |{' '}
-        <Link to="/category/women's clothing">Ropa Mujer</Link>
+        <Link to="/">Inicio</Link>
+        {loading ? (
+          <span style={{ marginLeft: 10 }}>Cargando categorías...</span>
+        ) : (
+          categories.map(cat => (
+            <span key={cat} style={{ marginLeft: 10 }}>
+              <Link to={`/category/${encodeURIComponent(cat)}`}>{cat.charAt(0).toUpperCase() + cat.slice(1)}</Link>
+            </span>
+          ))
+        )}
       </nav>
       <Routes>
         <Route path="/" element={<ItemListContainer />} />
