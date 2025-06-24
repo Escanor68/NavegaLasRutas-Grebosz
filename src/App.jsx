@@ -32,7 +32,7 @@ const categoryTranslations = {
 function App() {
   const [categories, setCategories] = useState([])
   const [loading, setLoading] = useState(true)
-  const { cart } = useCart ? useCart() : { cart: [] };
+  const { cart } = useCart();
   const navigate = useNavigate();
 
   useEffect(() => {
