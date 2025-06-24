@@ -1,10 +1,18 @@
 import { useCart } from '../context/CartContext';
+import { Link } from 'react-router-dom';
 
 function CartPage() {
   const { cart, removeFromCart, clearCart } = useCart();
 
   if (!cart.length) {
-    return <div className="alert alert-info mt-4">El carrito está vacío.</div>;
+    return (
+      <div className="alert alert-info mt-4 text-center">
+        El carrito está vacío.<br />
+        <Link to="/productos" className="btn btn-primary mt-3">
+          Ir a comprar
+        </Link>
+      </div>
+    );
   }
 
   const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
